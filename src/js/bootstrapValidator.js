@@ -418,9 +418,9 @@
 
             if(!this.isValid()){
                 if (this.options.errorHandler && 'function' == typeof this.options.errorHandler) {
-                    this.options.errorHandler();
+                    this.options.errorHandler(this, this.$form, this.$submitButton);
                 } else {
-                    this.errorHandler();
+                    this.errorHandler(this, this.$form, this.$submitButton);
                 }
             }
 
