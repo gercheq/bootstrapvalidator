@@ -296,6 +296,17 @@
 
         /**
          * Called when all validations are completed
+         * and at least one of the validations have failed
+         * By default, it doesn't do much so you need to extend functionality
+         * if you want to change the interaction
+         */
+        errorHandler: function() {
+            return;
+        },
+
+
+        /**
+         * Called when all validations are completed
          */
         _submit: function() {
             if (!this.isValid()) {
@@ -403,6 +414,14 @@
 
             for (var field in this.options.fields) {
                 this.validateField(field);
+            }
+
+            if(!this.isValid()){
+                if (this.options.errorHandler && 'function' == typeof this.options.errorHandler) {
+                    this.options.errorHandler();
+                } else {
+                    this.errorHandler();
+                }
             }
 
             // Check if whether the submit button is clicked
